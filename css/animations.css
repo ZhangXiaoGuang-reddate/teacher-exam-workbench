@@ -1,0 +1,198 @@
+/* ============================================
+   动画效果
+   ============================================ */
+
+/* 入场动画 */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* 应用类 */
+.animate-slide-up { animation: slideUp 0.4s ease; }
+.animate-slide-down { animation: slideDown 0.4s ease; }
+.animate-slide-left { animation: slideLeft 0.4s ease; }
+.animate-slide-right { animation: slideRight 0.4s ease; }
+.animate-pulse { animation: pulse 2s ease-in-out infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* 骨架屏 */
+.skeleton {
+  background: linear-gradient(90deg, var(--color-bg-hover) 25%, var(--color-border) 50%, var(--color-bg-hover) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-text { height: 14px; margin-bottom: 8px; }
+.skeleton-text:last-child { width: 60%; }
+.skeleton-title { height: 20px; width: 40%; margin-bottom: 16px; }
+.skeleton-card { height: 120px; border-radius: var(--radius-lg); }
+
+/* 按钮涟漪 */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-ripple:active::after {
+  width: 300px; height: 300px;
+}
+
+/* 页面过渡 */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* 列表项入场 */
+.list-enter {
+  opacity: 0;
+  transform: translateX(-10px);
+  max-height: 0;
+}
+
+.list-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  max-height: 60px;
+  transition: all 0.3s ease;
+}
+
+.list-exit-active {
+  opacity: 0;
+  transform: translateX(10px);
+  max-height: 0;
+  transition: all 0.3s ease;
+}
+
+/* 猫咪庆祝动画 */
+.cat-celebrate {
+  animation: catCelebrate 1s ease-in-out;
+}
+
+@keyframes catCelebrate {
+  0% { transform: scale(1) rotate(0); }
+  20% { transform: scale(1.3) rotate(-15deg); }
+  40% { transform: scale(1.3) rotate(15deg); }
+  60% { transform: scale(1.3) rotate(-10deg); }
+  80% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* 粒子特效 */
+.particle {
+  position: absolute;
+  pointer-events: none;
+  animation: particleBurst 0.8s ease-out forwards;
+}
+
+@keyframes particleBurst {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--px), var(--py)) scale(0); }
+}
+
+/* 番茄计时完成 */
+.pomodoro-complete {
+  animation: completeFlash 0.6s ease-in-out;
+}
+
+@keyframes completeFlash {
+  0%, 100% { background: transparent; }
+  50% { background: var(--color-primary-light); }
+}
+
+/* 打卡动画 */
+.check-in {
+  animation: checkIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes checkIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 通知铃铛 */
+.bell-ring {
+  animation: bellRing 1s ease-in-out;
+}
+
+@keyframes bellRing {
+  0%, 100% { transform: rotate(0); }
+  10% { transform: rotate(15deg); }
+  20% { transform: rotate(-15deg); }
+  30% { transform: rotate(10deg); }
+  40% { transform: rotate(-10deg); }
+  50% { transform: rotate(5deg); }
+  60% { transform: rotate(-5deg); }
+  70% { transform: rotate(0); }
+}
+
+/* 心跳 */
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.1); }
+}

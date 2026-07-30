@@ -1,0 +1,122 @@
+/* ============================================
+   响应式设计
+   ============================================ */
+
+/* 平板 (768px - 1024px) */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+
+  .page-content { padding: 20px; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .home-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .official-links { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+
+/* 手机端 (< 768px) */
+@media (max-width: 767px) {
+  :root {
+    --sidebar-width: 0;
+  }
+
+  .mobile-header { display: flex; }
+
+  .main-content {
+    margin-left: 0;
+    padding-top: var(--mobile-header-height);
+  }
+
+  .top-bar {
+    display: none;
+  }
+
+  /* 侧边栏抽屉 */
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+  }
+
+  .sidebar.open { transform: translateX(0); }
+
+  .sidebar-close { display: flex; }
+
+  .sidebar-overlay.show { display: block; }
+
+  .page-content {
+    padding: 16px;
+  }
+
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .home-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .official-links { grid-template-columns: 1fr; }
+
+  .level-selector { flex-direction: column; }
+
+  .countdown-number { font-size: 3rem; }
+  .countdown-detail { gap: 12px; }
+  .countdown-unit-value { font-size: 1.5rem; }
+
+  .pomodoro-timer {
+    width: 180px; height: 180px;
+  }
+
+  .pomodoro-time { font-size: 2.5rem; }
+
+  .ai-chat { height: 400px; }
+
+  .mood-calendar { gap: 3px; }
+  .mood-day { font-size: 0.65rem; }
+
+  .chart-bars { height: 140px; gap: 6px; }
+
+  .modal-content {
+    width: 95%;
+    margin: 16px;
+    max-height: 85vh;
+  }
+
+  .toast-container {
+    left: 16px;
+    right: 16px;
+    top: auto;
+    bottom: 16px;
+  }
+
+  .toast { min-width: 0; }
+
+  .settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cat-status-mobile .cat-container {
+    padding: 4px 8px;
+  }
+
+  .cat-status-mobile .cat-emoji {
+    font-size: 1.2rem;
+  }
+
+  .cat-status-mobile .cat-text {
+    font-size: 0.7rem;
+  }
+}
+
+/* 小手机 (< 380px) */
+@media (max-width: 380px) {
+  .page-content { padding: 12px; }
+
+  .card { padding: 16px; }
+
+  .pomodoro-timer {
+    width: 150px; height: 150px;
+  }
+
+  .pomodoro-time { font-size: 2rem; }
+
+  .countdown-number { font-size: 2.5rem; }
+}

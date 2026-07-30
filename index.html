@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教资备考工作台</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+</head>
+<body>
+  <!-- 移动端顶部栏 -->
+  <header class="mobile-header" id="mobileHeader">
+    <button class="menu-toggle" id="menuToggle" aria-label="菜单">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <h1 class="mobile-title">教资备考工作台</h1>
+    <div class="cat-status-mobile" id="catStatusMobile"></div>
+  </header>
+
+  <!-- 遮罩层 -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- 左侧导航栏 -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="var(--color-primary)"/>
+          <path d="M8 10h16M8 16h16M8 22h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">教资备考</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="关闭菜单">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+      <!-- 导航项由JS动态生成 -->
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="theme-switcher">
+        <button class="theme-btn" data-theme="light" title="亮色模式">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+        <button class="theme-btn" data-theme="dark" title="暗色模式">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <button class="theme-btn active" data-theme="system" title="跟随系统">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main class="main-content" id="mainContent">
+    <!-- 顶部栏 -->
+    <header class="top-bar">
+      <div class="breadcrumb" id="breadcrumb">
+        <span class="breadcrumb-item">首页</span>
+      </div>
+      <div class="top-bar-right">
+        <div class="cat-status" id="catStatus" title="任务完成状态">
+          <!-- 猫咪由JS动态渲染 -->
+        </div>
+      </div>
+    </header>
+
+    <!-- 页面内容区 -->
+    <div class="page-content" id="pageContent">
+      <!-- 首页欢迎页 -->
+      <div class="page active" data-page="home" id="page-home">
+        <!-- 动态渲染 -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast通知 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- 模态框容器 -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none;">
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/modules/navigation.js"></script>
+  <script src="js/modules/cat-mascot.js"></script>
+  <script src="js/modules/planning.js"></script>
+  <script src="js/modules/daily-plan.js"></script>
+  <script src="js/modules/pomodoro.js"></script>
+  <script src="js/modules/subject-study.js"></script>
+  <script src="js/modules/schedule.js"></script>
+  <script src="js/modules/mood.js"></script>
+  <script src="js/modules/countdown.js"></script>
+  <script src="js/modules/statistics.js"></script>
+  <script src="js/modules/ai-assistant.js"></script>
+  <script src="js/modules/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
