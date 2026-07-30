@@ -3,7 +3,15 @@
    ============================================ */
 
 const App = {
+  deferredPrompt: null,
+
   init() {
+    // 注册 Service Worker (PWA)
+    this.registerSW();
+
+    // 监听安装事件
+    this.initPWAInstall();
+
     // 初始化主题
     Theme.init();
 
@@ -42,6 +50,85 @@ const App = {
     this.bindShortcuts();
 
     console.log('📚 教资备考工作台已就绪');
+  },
+
+  // 注册 Service Worker
+  registerSW() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then((reg) => {
+          console.log('[PWA] SW registered:', reg.scope);
+          // 自动更新
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            if (!newWorker) return;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                Utils.showToast('有新版本可用，刷新后生效 🔄', 'info');
+              }
+            });
+          });
+        }).catch((err) => {
+          console.warn('[PWA] SW registration failed:', err);
+        });
+      });
+    }
+  },
+
+  // PWA 安装
+  initPWAInstall() {
+    // 捕获 beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      // 延迟显示安装提示（用户使用一段时间后）
+      setTimeout(() => this.showInstallBanner(), 30000);
+    });
+
+    // 已安装
+    window.addEventListener('appinstalled', () => {
+      this.deferredPrompt = null;
+      Utils.showToast('🎉 教资备考工作台已安装到桌面！', 'success');
+    });
+  },
+
+  // 显示安装横幅
+  showInstallBanner() {
+    if (!this.deferredPrompt) return;
+    const dismissed = localStorage.getItem('pwa_install_dismissed');
+    if (dismissed) return;
+
+    const banner = document.createElement('div');
+    banner.className = 'install-banner';
+    banner.innerHTML = `
+      <div class="install-banner-content">
+        <div class="install-banner-icon">📚</div>
+        <div class="install-banner-text">
+          <strong>添加到主屏幕</strong>
+          <span>像 App 一样快捷使用</span>
+        </div>
+        <button class="btn btn-sm btn-primary" id="installBtn">安装</button>
+        <button class="btn btn-sm btn-icon btn-secondary" id="dismissInstall" title="关闭">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(banner);
+
+    banner.querySelector('#installBtn').onclick = async () => {
+      await this.deferredPrompt.prompt();
+      const result = await this.deferredPrompt.userChoice;
+      console.log('[PWA] Install result:', result.outcome);
+      this.deferredPrompt = null;
+      banner.remove();
+    };
+
+    banner.querySelector('#dismissInstall').onclick = () => {
+      banner.remove();
+      localStorage.setItem('pwa_install_dismissed', '1');
+    };
   },
 
   renderHome() {
